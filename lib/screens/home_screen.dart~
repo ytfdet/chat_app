@@ -1,0 +1,71 @@
+import 'package:chatapp/helper/database.dart';
+import 'package:chatapp/widgets/custom_button.dart';
+import 'package:flutter/material.dart';
+
+import '../helper/constant.dart';
+import '../widgets/custom_text_field.dart';
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
+final age = TextEditingController();
+final email = TextEditingController();
+final pass = TextEditingController();
+final name = TextEditingController();
+final id = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kPrimaryColor,
+      body:Column(
+        children: [
+
+          CustomTextFormField(
+            hintText: 'Email',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CustomTextFormField(
+            controller: email,
+            hintText: 'Email',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CustomTextFormField(
+            controller: age,
+            hintText: 'Email',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CustomTextFormField(
+            controller: name,
+            hintText: 'Email',
+          ),CustomTextFormField(
+            controller: pass,
+            hintText: 'Email',
+          ),CustomTextFormField(
+            controller: id,
+            hintText: 'Email',
+          ),
+          CustomButton(
+              text: 'run',
+
+          //     onPressed: (){
+          //   DatabaseHelper().insert(
+          //    // password: pass.text,
+          //     email: email.text,
+          //     age: age.text,
+          //     name: name.text,
+          //       id: id.text,
+          //
+          //
+          //
+          //   );
+          // }),
+        ],
+      )
+
+    );
+  }
+}

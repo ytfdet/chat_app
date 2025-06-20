@@ -1,0 +1,117 @@
+import 'package:chatapp/helper/constant.dart';
+import 'package:chatapp/helper/database.dart';
+
+import 'package:chatapp/widgets/custom_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../widgets/custom_button.dart';
+
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
+
+  final email = TextEditingController();
+  final pass = TextEditingController();
+
+  Future<void> signin() async {
+    final response = await Supabase.instance.client.auth.signInWithPassword(
+      email: email.text,
+      password: pass.text,
+    );
+    if (response.error == null) {
+      print('الحساب موجود');
+    } else {
+      print('‘خطأ: ${response.error!.message}’');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kPrimaryColor,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            Spacer(flex: 2),
+
+            Image.asset(
+              'assets/images/Chat-lab-bubble-logo-white-background-not-tail.mXlmTIlh.png',
+
+              // color: Color(0xFF2B475E),
+              height: 100,
+              width: 100,
+            ),
+
+            Text(
+              'Scholar Chat',
+              style: TextStyle(
+                fontSize: 34,
+                fontFamily: 'Pacifico',
+                color: Colors.white,
+              ),
+            ),
+            Spacer(flex: 2),
+            Row(
+              children: [
+                Text(
+                  'LOGIN',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            CustomTextFormField(
+                controller: email,
+              hintText: 'Email',
+            ),
+            SizedBox(height: 15),
+            CustomTextFormField(
+               controller: pass,
+              hintText: 'Password',
+            ),
+
+
+            SizedBox(height: 15),
+            CustomButton(
+              text: 'LOGIN',
+              onPressed: () {
+                signin().then((value) => Navigator.pushNamed(context, 'ProfileScreen'));
+              },
+            ),
+            CustomButton(
+              text: 'LOGIN',
+              onPressed: () {
+                Navigator.pushNamed(context, 'About');
+              },
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Don\'t have an account?',
+                  style: TextStyle(color: Colors.white),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'RegisterScreen');
+                  },
+                  child: Text(
+                    'Register',
+                    style: TextStyle(color: Color(0xffC7EDE6)),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(flex: 3),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+extension on AuthResponse {
+  get error => null;
+}
